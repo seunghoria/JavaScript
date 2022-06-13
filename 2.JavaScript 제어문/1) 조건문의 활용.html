@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>night/dat</title>
+</head>
+<body>
+  <input type="button" value="night" onclick="
+  var target = document.querySelector('body');
+  if (this.value === 'night'){
+  target.style.backgroundColor= 'black';
+  target.style.color= 'white';
+  this.value = 'day';
+ } else {
+  target.style.backgroundColor= 'white';
+  target.style.color= 'black';
+  this.value = 'night';
+ }
+ ">
+
+<p>
+  아무내용
+  아무내용
+  아무내용
+</p>
+<input type="button" value="night" onclick="
+ if (this.value === 'night'){
+ document.querySelector('body').style.backgroundColor= 'black';
+ document.querySelector('body').style.color= 'white';
+ this.value = 'day';
+} else {
+ document.querySelector('body').style.backgroundColor= 'white';
+ document.querySelector('body').style.color= 'black';
+ this.value = 'night';
+}
+">
+
+
+<!--생각해보기 예제-->
+<!--(1) this 사용 (2) 중복 없애기-->
+<input type="button" value="ex2" onclick="
+var target2 = document.querySelector('body');
+if(this.value === 'night') {
+  target2.style.backgroundColor = 'black';
+  this.style.color = 'white';
+  this.value = 'day';
+}
+else {
+  target2.style.backgroundColor = 'white';
+  this.style.color = 'black';
+  this.value = 'night';
+}
+">
+
+</body>
+</html>

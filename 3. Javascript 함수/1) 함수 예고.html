@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>night/dat</title>
+  <script>
+    function nightDayHandler(self){
+      var target = document.querySelector('body');
+      if (self.value === 'night'){
+        target.style.backgroundColor= 'black';
+        target.style.color= 'white';
+        self.value = 'day';
+      
+        var alist = document.querySelectorAll('a');
+        var i = 0;
+        while(i <alist.length){
+          alist[i].style.color = 'powderblue';
+          i = i + 1;
+        }
+      } else {
+        target.style.backgroundColor= 'white';
+        target.style.color= 'black';
+        self.value = 'night';
+
+        var alist = document.querySelectorAll('a');
+        var i = 0;
+        while(i <alist.length){
+          alist[i].style.color = 'blue';
+          i = i + 1;
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1><a href="https://www.naver.com">WEB</a></h1>
+  <input type="button" value="night" onclick="
+    nightDayHandler(this);
+ ">
+
+
+ <input type="button" value="night" onclick="
+    nightDayHandler(this);
+ ">
+<ol>
+  <li><a href="http://www.google.com">HTML</a></li>
+  <li><a href="http://www.google.com">CSS</a></li>
+  <li><a href="http://www.google.com">JavaScript</a></li>
+</ol>
+<h2>JavaScript</h2>
+<p>
+  아무내용
+  아무내용
+  아무내용
+</p>
+
+
+
+</body>
+</html>
