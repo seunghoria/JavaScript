@@ -3,7 +3,7 @@
 //TODO 서버 요청 부분
 //- [x] 웹서버를 띄운다.
 //- [x] 서버에 새로운 메뉴명이 추가될 수 있도록 요청한다.
-//- [] 서버에 카테고리별 메뉴리스트를 불러온다.
+//- [x] 서버에 카테고리별 메뉴리스트를 불러온다.
 //- [] 서버에 메뉴가 수정될 수 있도록 요청한다.
 //- [] 서버에 메뉴의 품절상태를 토글될 수 있도록 요청한다.
 //- [] 서버에 메뉴가 삭제될 수 있도록 요청한다.
@@ -22,8 +22,23 @@ const BASE_URL = "http://localhost:3000/api"
 
 const MenuApi = {
   async getAllMenuByCategory(category) {
-    const response = await fetch(`${BASE_URL}/category/${category}/menu`)
+    const response = await fetch(`${BASE_URL}/category/${category}/menu`);
     return response.json();
+  },
+  async createMenu(category, name) {
+    const response = await fetch(
+      `${BASE_URL}/category/${category}/menu`, 
+      {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name }),
+      }
+    );
+    if (!response.ok){
+      console.error("에러가 발생했습니다.");
+    }
   },
 };
 
@@ -94,18 +109,7 @@ function App() {
       return;
     }
     const menuName = $("#menu-name").value;
-
-    await fetch(`${BASE_URL}/category/${this.currentCategory}/menu`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name: menuName }),
-    })
-    .then((response) => {
-      return response.json();
-    });
-
+    await MenuApi.createMenu(this.currentCategory, menuName);
     this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(
       this.currentCategory
     );
@@ -172,12 +176,15 @@ function App() {
       addMenuName();
     });
   
-    $("nav").addEventListener("click", (e) => {
+    $("nav").addEventListener("click", async (e) => {
       const isCategoryButton = e.target.classList.contains("cafe-category-name")
       if (isCategoryButton) {
           const categoryName = e.target.dataset.categoryName;
           this.currentCategory = categoryName;
           $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`;
+          this.menu[this.currentCategory] = await MenuApi.getAllMenuByCategory(
+            this.currentCategory
+            );
           render();
       }
     });
